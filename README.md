@@ -125,6 +125,8 @@ Error: a resource with the ID "...resourceGroups/tp-azure-rg" already exists
 terraform import azurerm_resource_group.rg \
   /subscriptions/4ca697b4-c330-47fc-8e23-2286c67e2153/resourceGroups/tp-azure-rg
 ```
+<img width="1315" height="390" alt="Capture d&#39;écran 2026-02-23 205710" src="https://github.com/user-attachments/assets/2d463177-e510-4b52-95dc-a39790c80441" />
+
 
 ---
 
@@ -137,6 +139,8 @@ Error: creating Virtual Network "tp-azure-vnet": 403 Forbidden
 RequestDisallowedByAzure: Resource was disallowed by Azure:
 This policy maintains a set of best available regions...
 ```
+<img width="1021" height="498" alt="Capture d&#39;écran 2026-02-23 210054" src="https://github.com/user-attachments/assets/1fa2e5e2-bd87-40b4-b87b-dc019eb8a37c" />
+
 
 **Solution** : Changement de la région dans `variables.tf` pour utiliser `West Europe`, autorisée sur les abonnements étudiants :
 
@@ -148,6 +152,8 @@ variable "location" {
 ```
 
 Suivi d'un `terraform destroy` puis d'un nouveau `terraform apply` pour recréer toutes les ressources dans la bonne région.
+
+<img width="1467" height="423" alt="Capture d&#39;écran 2026-02-23 210310" src="https://github.com/user-attachments/assets/3a0da4bd-8360-4734-96fb-9cdf11e888eb" />
 
 ---
 
@@ -167,7 +173,8 @@ Suivi d'un `terraform destroy` puis d'un nouveau `terraform apply` pour recréer
 
 Exécution de `terraform plan` confirmant les 16 ressources à créer, sans erreur de configuration.
 
-> 📸 *[Capture d'écran : sortie complète du terraform plan]*
+<img width="1112" height="685" alt="Capture d&#39;écran 2026-02-23 205113" src="https://github.com/user-attachments/assets/dbeb6888-8b4f-4690-a50f-a7ec1e5f8f0e" />
+
 
 ---
 
@@ -175,7 +182,9 @@ Exécution de `terraform plan` confirmant les 16 ressources à créer, sans erre
 
 Déploiement complet réussi des 16 ressources en une seule exécution.
 
-> 📸 *[Capture d'écran : terraform apply — Apply complete! Resources: 16 added, 0 changed, 0 destroyed]*
+<img width="1402" height="458" alt="Capture d&#39;écran 2026-02-23 210710" src="https://github.com/user-attachments/assets/b6cd8939-4c02-4f9f-94bb-d24cd9ae7820" />
+
+
 
 Outputs affichés après le déploiement :
 
@@ -185,6 +194,10 @@ resource_group_id       = "/subscriptions/.../resourceGroups/tp-azure-rg"
 subnet_id               = "/subscriptions/.../tp-azure-subnet"
 vnet_name               = "tp-azure-vnet"
 ```
+
+<img width="1463" height="608" alt="Capture d&#39;écran 2026-02-23 210534" src="https://github.com/user-attachments/assets/c9eac90b-a4b7-4775-b367-77bcf23fc3a9" />
+
+
 
 ---
 
@@ -206,22 +219,14 @@ curl http://20.203.143.16
 → <h1>Hello from VM-2</h1>  (HTTP 200 OK)
 ```
 
-> 📸 *[Capture d'écran : réponse VM-1 via curl]*  
-> 📸 *[Capture d'écran : réponse VM-2 via navigateur]*
+<img width="1284" height="518" alt="Capture d&#39;écran 2026-02-23 210810" src="https://github.com/user-attachments/assets/465b04c9-9275-4da8-8092-6aaf3a1409ca" /> 
+<img width="1028" height="236" alt="Capture d&#39;écran 2026-02-23 211355" src="https://github.com/user-attachments/assets/a9de157d-dd75-4bf7-b0bc-8a624df4e16d" />
+<img width="1043" height="727" alt="Capture d&#39;écran 2026-02-23 211346" src="https://github.com/user-attachments/assets/5e604a58-080f-49a3-8ecf-a620391b4684" />
+
+
 
 Les deux VMs sont bien actives et accessibles derrière le Load Balancer.
 
----
-
-### 4.4 — Erreur d'accès serveur (difficulté documentée)
-
-Lors des premières tentatives de test, l'accès HTTP retournait une erreur de connexion. Cela était dû au délai d'initialisation des VMs : le script `custom_data` (installation de Nginx) s'exécute au premier démarrage et nécessite 2 à 3 minutes avant d'être opérationnel.
-
-> 📸 *[Capture d'écran : erreur d'accès serveur lors du premier test]*
-
-**Solution** : Attendre quelques minutes après le `terraform apply` avant de tester l'accès HTTP.
-
----
 
 ## 5. Nettoyage de l'infrastructure
 
@@ -231,7 +236,10 @@ Suppression de toutes les ressources déployées via :
 terraform destroy
 ```
 
-> 📸 *[Capture d'écran : terraform destroy — Destroy complete!]*
+<img width="1465" height="618" alt="Capture d&#39;écran 2026-02-23 231054" src="https://github.com/user-attachments/assets/1cb3dbaa-4a92-40de-a783-cace9ccb0c54" />
+<img width="1467" height="546" alt="Capture d&#39;écran 2026-02-23 231423" src="https://github.com/user-attachments/assets/1cfbbc49-8dea-4d4a-bb2e-c2b6529c1d2b" />
+
+
 
 La destruction a bien supprimé les 16 ressources créées, évitant toute consommation inutile du crédit Azure étudiant.
 
