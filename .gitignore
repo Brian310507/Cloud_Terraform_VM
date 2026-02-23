@@ -1,0 +1,25 @@
+# State Terraform - contient des données sensibles (IPs, IDs, mots de passe)
+*.tfstate
+*.tfstate.backup
+
+# Répertoire des providers téléchargés - très lourd et inutile à versionner
+.terraform/
+
+# Lock file des providers - à débat, mais souvent ignoré sur les petits projets
+# .terraform.lock.hcl  ← tu peux le garder pour fixer les versions
+
+# Plan sauvegardé - peut contenir des données sensibles
+*.tfplan
+
+# Fichier de variables avec valeurs sensibles
+*.tfvars
+terraform.tfvars
+
+# Clés SSH - ne JAMAIS commiter
+*.pem
+*.pub
+id_rsa
+id_rsa.pub
+
+# Variables d'environnement locales
+.env
